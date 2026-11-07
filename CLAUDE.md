@@ -373,3 +373,14 @@ When instructions conflict, use this order:
 5. Existing code conventions, where they do not conflict with the above.
 
 If two authoritative project documents conflict, do not silently choose one. Explain the conflict and request clarification.
+
+## 14. Branch Workflow (Constitution)
+
+All development work happens on the `develop` branch. The `main` branch is protected and must not be touched directly by agents:
+
+- Create feature work on `develop` (or short-lived feature branches branched from `develop`).
+- Do not commit, push, or merge anything directly to `main`.
+- Do not rebase, reset, or rewrite `main` history.
+- `main` is updated only via an approved merge request/PR from `develop`, reviewed and merged by the project owner.
+
+This rule is the project constitution and takes precedence over general workflow convenience. If a task explicitly requires touching `main`, request clarification from the project owner before proceeding.
