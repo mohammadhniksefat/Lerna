@@ -98,7 +98,7 @@ describe('ChaptersService', () => {
         section: undefined,
         createdAt: new Date(),
         updatedAt: new Date(),
-      } as Chapter;
+      } as unknown as Chapter;
 
       chapterRepository.create = vi.fn().mockReturnValue(savedChapter);
       chapterRepository.save = vi.fn().mockResolvedValue(savedChapter);
@@ -132,7 +132,7 @@ describe('ChaptersService', () => {
         section: null,
         createdAt: new Date(),
         updatedAt: new Date(),
-      } as Chapter;
+      } as unknown as Chapter;
 
       chapterRepository.create = vi.fn().mockReturnValue(savedChapter);
       chapterRepository.save = vi.fn().mockResolvedValue(savedChapter);

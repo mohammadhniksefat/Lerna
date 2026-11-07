@@ -42,3 +42,17 @@
 - `CoursesModule` — wired in `AppModule`; `Course`/`Section`/`Chapter` registered in TypeORM entities
 - `apps/api/test/content.e2e.spec.ts` — e2e smoke test covering full Admin flow, Student 403, unauthenticated 401, publish gating, error envelopes
 **Deviations from plan:** none
+
+## Todo 3: Learning Experience
+**Depends on:** Todo 2
+**Produces:**
+- `sanitizeMarkdown(markdown: string): string` — Markdown→sanitized HTML via `marked` + `sanitize-html` (server-side, no DOM); `apps/api/src/student/markdown.ts`
+- DTOs: `StudentCourseDto`, `CourseDetailsDto`, `SectionWithChaptersDto`, `ChapterSummaryDto`, `ChapterReaderDto` (camelCase at API boundary)
+- `StudentCoursesService.findPublished()` — all `PUBLISHED` courses; `findCourseWithStructure(id)` — null for draft/unknown; sections+chapters for SECTION_BASED, direct chapters for FLAT
+- `StudentCoursesController` — `@Controller('student/courses')`, `@UseGuards(JwtAuthGuard)` only (no `@Roles(ADMIN)`); `GET /student/courses`, `GET /student/courses/:id`
+- `StudentChaptersService.findChapter(id)` — sanitized `contentHtml` via `sanitizeMarkdown`, plus `prevChapterId`/`nextChapterId` within parent scope (course for Flat, section for Section-based); null for unpublished/unknown
+- `StudentChaptersController` — `@Controller('student/chapters')`, `@UseGuards(JwtAuthGuard)` only; `GET /student/chapters/:id`
+- `StudentModule` — `TypeOrmModule.forFeature([Course, Section, Chapter])`, services, controllers; registered in `AppModule`; student API mounted at `/student/courses`, `/student/chapters`
+- `apps/api/test/student.e2e.spec.ts` — e2e smoke test covering published-only listing, course details, chapter reader with sanitized HTML + navigation, 401/404
+- `apps/api/src/student/student.module.spec.ts` — module wiring verification
+**Deviations from plan:** none
