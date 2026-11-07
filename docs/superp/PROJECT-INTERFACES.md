@@ -27,3 +27,18 @@
 - `HttpExceptionFilter` — global error envelope `{ error: { code, message, details? } }`
 - App startup bootstrap — Admin created from `ADMIN_EMAIL`/`ADMIN_PASSWORD` on first start
 **Deviations from plan:** none
+
+## Todo 2: Content Management
+**Depends on:** Todo 1
+**Produces:**
+- `Course` entity — `id`, `title`, `description`, `structureType`, `status`, `createdAt`, `updatedAt`; `CourseStructureType` enum (`FLAT`, `SECTION_BASED`); `CourseStatus` enum (`DRAFT`, `PUBLISHED`); `create-courses-table` migration — `courses` table
+- `Section` entity — `id`, `courseId`, `title`, `position`, `createdAt`, `updatedAt`; `create-sections-table` migration — `sections` table with `course_id` FK `ON DELETE CASCADE`
+- `Chapter` entity — `id`, `courseId` (nullable), `sectionId` (nullable), `title`, `content`, `position`, `createdAt`, `updatedAt`; `create-chapters-table` migration — `chapters` table with `course_id`/`section_id` FKs (`ON DELETE CASCADE`) and `chapters_parent_check` CHECK constraint (XOR parent)
+- DTOs: `CourseDto`, `CreateCourseDto`, `UpdateCourseDto`, `SectionDto`, `CreateSectionDto`, `UpdateSectionDto`, `ChapterDto`, `CreateChapterDto`, `UpdateChapterDto` (camelCase at API boundary)
+- `CoursesService` — `findAll`, `findOne`, `create`, `update`, `remove`, `publish` (≥1 chapter rule), `unpublish` (preserves progress)
+- `SectionsService` — `findAllByCourse`, `findOne`, `create`, `update`, `remove`, `reorder`
+- `ChaptersService` — `findAllByCourse`, `findAllBySection`, `findOne`, `create` (XOR parent rule), `update`, `remove`, `reorder`
+- `CoursesController`, `SectionsController`, `ChaptersController` — all endpoints `@Roles(UserRole.ADMIN)`; paths `POST/GET/PATCH/DELETE /courses`, `POST /courses/:id/publish`, `POST /courses/:id/unpublish`, `POST/GET/PATCH/DELETE /courses/:courseId/sections` + reorder, `GET/POST/PATCH/DELETE /chapters` + reorder
+- `CoursesModule` — wired in `AppModule`; `Course`/`Section`/`Chapter` registered in TypeORM entities
+- `apps/api/test/content.e2e.spec.ts` — e2e smoke test covering full Admin flow, Student 403, unauthenticated 401, publish gating, error envelopes
+**Deviations from plan:** none

@@ -1,6 +1,6 @@
 # Todo 2 — Content Management Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: this plan defines tasks, dependencies, and acceptance criteria only. Use the superp:subagent-driven-development sequential dispatch loop (recommended — fresh subagent per task, dispatched one at a time in topo order, with review between tasks) or execute tasks inline in topo order to actually write code, tests, and commits. `Parallel-safe with` and true concurrent execution are only exploited by superp:executing-plans (separate session, isolated worktrees); subagent-driven-development always dispatches one implementer at a time. Steps use checkbox (`- [ ]`) syntax for tracking. Task ordering MUST respect each task's `Depends on` field — do not execute or dispatch a task before all of its dependencies are checked off. The plan is not finished until every item in the Definition of Done section at the end is satisfied — task checkboxes alone do not mean the project is done.
+> **For agentic workers:** REQUIRED SUB-SKILL: this plan defines tasks, dependencies, and acceptance criteria only. Use the superp:subagent-driven-development sequential dispatch loop (recommended — fresh subagent per task, dispatched one at a time in topo order, with review between tasks) or execute tasks inline in topo order to actually write code, tests, and commits. `Parallel-safe with` and true concurrent execution are only exploited by superp:executing-plans (separate session, isolated worktrees); subagent-driven-development always dispatches one implementer at a time. Steps use checkbox (`- [x]`) syntax for tracking. Task ordering MUST respect each task's `Depends on` field — do not execute or dispatch a task before all of its dependencies are checked off. The plan is not finished until every item in the Definition of Done section at the end is satisfied — task checkboxes alone do not mean the project is done.
 
 **Goal:** Build the Lerna backend Content Management API: Course, Section, and Chapter entities with TypeORM migrations, DTOs, services, Admin-protected controllers, and module wiring — per PRD Section 10 (Phase 2 — Content Management) and Sections 4.2–4.4.
 
@@ -85,12 +85,12 @@ Task 10 → Task 9
 - Migration creates `courses` table + `course_structure_type` and `course_status` enums; rollback drops both.
 - `status` defaults to `DRAFT`.
 
-- [ ] **Step 1:** Define `CourseStructureType` and `CourseStatus` enums and the `Course` entity
-- [ ] **Step 2:** Write `create-courses-table` migration (up + down)
-- [ ] **Step 3:** Write `course.entity.spec.ts` entity metadata test
-- [ ] **Step 4:** Run migration-forward, assert schema, run rollback
-- [ ] **Step 5:** Entity + migration tests pass
-- [ ] **Step 6: Commit**
+- [x] **Step 1:** Define `CourseStructureType` and `CourseStatus` enums and the `Course` entity
+- [x] **Step 2:** Write `create-courses-table` migration (up + down)
+- [x] **Step 3:** Write `course.entity.spec.ts` entity metadata test
+- [x] **Step 4:** Run migration-forward, assert schema, run rollback
+- [x] **Step 5:** Entity + migration tests pass
+- [x] **Step 6: Commit**
 
 ---
 
@@ -123,12 +123,12 @@ Task 10 → Task 9
 - `course_id` FK references `courses(id)` with `ON DELETE CASCADE`.
 - All columns snake_case in DB, camelCase in TS.
 
-- [ ] **Step 1:** Define the `Section` entity with course relation
-- [ ] **Step 2:** Write `create-sections-table` migration (up + down)
-- [ ] **Step 3:** Write `section.entity.spec.ts` entity metadata test
-- [ ] **Step 4:** Run migration-forward, assert schema + FK, run rollback
-- [ ] **Step 5:** Entity + migration tests pass
-- [ ] **Step 6: Commit**
+- [x] **Step 1:** Define the `Section` entity with course relation
+- [x] **Step 2:** Write `create-sections-table` migration (up + down)
+- [x] **Step 3:** Write `section.entity.spec.ts` entity metadata test
+- [x] **Step 4:** Run migration-forward, assert schema + FK, run rollback
+- [x] **Step 5:** Entity + migration tests pass
+- [x] **Step 6: Commit**
 
 ---
 
@@ -162,12 +162,12 @@ Task 10 → Task 9
 - Exactly one of `course_id`/`section_id` set (CHECK constraint enforces XOR at DB level).
 - `course_id` FK → `courses(id) ON DELETE CASCADE`; `section_id` FK → `sections(id) ON DELETE CASCADE`.
 
-- [ ] **Step 1:** Define the `Chapter` entity with optional course/section relations
-- [ ] **Step 2:** Write `create-chapters-table` migration (up + down) with parent XOR CHECK constraint
-- [ ] **Step 3:** Write `chapter.entity.spec.ts` entity metadata test
-- [ ] **Step 4:** Run migration-forward, assert schema + FKs + CHECK constraint, run rollback
-- [ ] **Step 5:** Entity + migration tests pass
-- [ ] **Step 6: Commit**
+- [x] **Step 1:** Define the `Chapter` entity with optional course/section relations
+- [x] **Step 2:** Write `create-chapters-table` migration (up + down) with parent XOR CHECK constraint
+- [x] **Step 3:** Write `chapter.entity.spec.ts` entity metadata test
+- [x] **Step 4:** Run migration-forward, assert schema + FKs + CHECK constraint, run rollback
+- [x] **Step 5:** Entity + migration tests pass
+- [x] **Step 6: Commit**
 
 ---
 
@@ -208,10 +208,10 @@ Task 10 → Task 9
 - All DTOs use `camelCase`; no sensitive/internal fields exposed.
 - `Update/*Dto` have all fields optional.
 
-- [ ] **Step 1:** Write failing DTO validation tests
-- [ ] **Step 2:** Create all Course/Section/Chapter DTOs (create/update/response)
-- [ ] **Step 3:** DTO tests pass
-- [ ] **Step 4: Commit**
+- [x] **Step 1:** Write failing DTO validation tests
+- [x] **Step 2:** Create all Course/Section/Chapter DTOs (create/update/response)
+- [x] **Step 3:** DTO tests pass
+- [x] **Step 4: Commit**
 
 ---
 
@@ -254,10 +254,10 @@ Task 10 → Task 9
 - `create()` defaults status to `DRAFT`.
 - All methods use `snake_case` entity properties internally, return entities.
 
-- [ ] **Step 1:** Write failing CoursesService unit tests (mocked repositories)
-- [ ] **Step 2:** Implement `courses.service.ts` with publish/unpublish chapter-count rule
-- [ ] **Step 3:** CoursesService tests pass
-- [ ] **Step 4: Commit**
+- [x] **Step 1:** Write failing CoursesService unit tests (mocked repositories)
+- [x] **Step 2:** Implement `courses.service.ts` with publish/unpublish chapter-count rule
+- [x] **Step 3:** CoursesService tests pass
+- [x] **Step 4: Commit**
 
 ---
 
@@ -297,10 +297,10 @@ Task 10 → Task 9
 - `create()` assigns `course_id` from the parent course.
 - `remove()` cascades to chapters (DB FK ON DELETE CASCADE).
 
-- [ ] **Step 1:** Write failing SectionsService unit tests
-- [ ] **Step 2:** Implement `sections.service.ts`
-- [ ] **Step 3:** SectionsService tests pass
-- [ ] **Step 4: Commit**
+- [x] **Step 1:** Write failing SectionsService unit tests
+- [x] **Step 2:** Implement `sections.service.ts`
+- [x] **Step 3:** SectionsService tests pass
+- [x] **Step 4: Commit**
 
 ---
 
@@ -342,10 +342,10 @@ Task 10 → Task 9
 - Chapters ordered by `position` within parent (course or section).
 - `findAllByCourse` excludes section chapters; `findAllBySection` returns only that section's chapters.
 
-- [ ] **Step 1:** Write failing ChaptersService unit tests
-- [ ] **Step 2:** Implement `chapters.service.ts` with XOR parent rule
-- [ ] **Step 3:** ChaptersService tests pass
-- [ ] **Step 4: Commit**
+- [x] **Step 1:** Write failing ChaptersService unit tests
+- [x] **Step 2:** Implement `chapters.service.ts` with XOR parent rule
+- [x] **Step 3:** ChaptersService tests pass
+- [x] **Step 4: Commit**
 
 ---
 
@@ -399,10 +399,10 @@ Task 10 → Task 9
 - Error envelope `{ error: { code, message } }` on 400/401/403/404/409.
 - Invalid bodies → 400 via ValidationPipe (whitelist).
 
-- [ ] **Step 1:** Write failing Supertest controller integration tests
-- [ ] **Step 2:** Implement `courses.controller.ts`, `sections.controller.ts`, `chapters.controller.ts`
-- [ ] **Step 3:** Controller tests pass
-- [ ] **Step 4: Commit**
+- [x] **Step 1:** Write failing Supertest controller integration tests
+- [x] **Step 2:** Implement `courses.controller.ts`, `sections.controller.ts`, `chapters.controller.ts`
+- [x] **Step 3:** Controller tests pass
+- [x] **Step 4: Commit**
 
 ---
 
@@ -437,11 +437,11 @@ Task 10 → Task 9
 - `CoursesModule` imported in `AppModule`; `Course`, `Section`, `Chapter` in TypeORM `entities`.
 - `GET /courses` without token → 401 (routes registered + guarded).
 
-- [ ] **Step 1:** Create `courses.module.ts` with forFeature + services + controllers
-- [ ] **Step 2:** Add Course/Section/Chapter to `typeorm.module.ts` entities array
-- [ ] **Step 3:** Add `CoursesModule` to `app.module.ts` imports
-- [ ] **Step 4:** `npx nest build` exits 0; app boots; `/courses` guarded
-- [ ] **Step 5: Commit**
+- [x] **Step 1:** Create `courses.module.ts` with forFeature + services + controllers
+- [x] **Step 2:** Add Course/Section/Chapter to `typeorm.module.ts` entities array
+- [x] **Step 3:** Add `CoursesModule` to `app.module.ts` imports
+- [x] **Step 4:** `npx nest build` exits 0; app boots; `/courses` guarded
+- [x] **Step 5: Commit**
 
 ---
 
@@ -483,9 +483,9 @@ Task 10 → Task 9
 - Student 403 / unauthenticated 401 on all content endpoints.
 - Error envelope shape verified on error responses.
 
-- [ ] **Step 1:** Write content e2e smoke test
-- [ ] **Step 2:** Run full test suite (`npm test -- --run`) exits 0
-- [ ] **Step 3: Commit**
+- [x] **Step 1:** Write content e2e smoke test
+- [x] **Step 2:** Run full test suite (`npm test -- --run`) exits 0
+- [x] **Step 3: Commit**
 
 ---
 
@@ -537,17 +537,17 @@ No duplicates. Each earns its own commit.
 
 Project (Todo 2) is DONE when all of the following hold:
 
-- [ ] `npx nest build` exits 0 (NestJS compiles, Task 9)
-- [ ] `npm run typeorm migration:run` against test PostgreSQL applies `create-courses-table`, `create-sections-table`, `create-chapters-table` and creates `courses`, `sections`, `chapters` tables with correct columns + FKs + CHECK constraint (Tasks 1–3)
-- [ ] `npm run typeorm migration:revert` drops all three tables and enum types (Tasks 1–3)
-- [ ] `npm test -- --run` (full `@lerna/api` Vitest suite) exits 0 with zero failures (Tasks 1–10)
-- [ ] `npm test -- --run src/courses/courses.service.spec.ts` exits 0 — `publish()` throws with 0 chapters, succeeds with ≥1 chapter (Task 5)
-- [ ] `npm test -- --run src/courses/chapters.service.spec.ts` exits 0 — `create()` rejects both/neither parent (Task 7)
-- [ ] `npm test -- --run src/courses/*.controller.spec.ts` exits 0 — Admin 200/201/204, Student 403, no-token 401, publish-0-chapters 409 (Task 8)
-- [ ] `npm test -- --run test/content.e2e.spec.ts` exits 0 — full Admin flow: create DRAFT → publish blocked → add chapter → publish → list → student denied → delete → 404 (Task 10)
-- [ ] Manual: `curl -s http://localhost:3000/courses` without a token returns 401 (routes registered + guarded, Task 9)
-- [ ] `grep -rn "TODO\|TBD" apps/api/src/courses docs/superp/plans/2026-11-07-todo-2-content-management.md` returns nothing
-- [ ] Every task above (1–10) is checked off and its own Acceptance Criteria verified
+- [x] `npx nest build` exits 0 (NestJS compiles, Task 9)
+- [x] `npm run typeorm migration:run` against test PostgreSQL applies `create-courses-table`, `create-sections-table`, `create-chapters-table` and creates `courses`, `sections`, `chapters` tables with correct columns + FKs + CHECK constraint (Tasks 1–3)
+- [x] `npm run typeorm migration:revert` drops all three tables and enum types (Tasks 1–3)
+- [x] `npm test -- --run` (full `@lerna/api` Vitest suite) exits 0 with zero failures (Tasks 1–10)
+- [x] `npm test -- --run src/courses/courses.service.spec.ts` exits 0 — `publish()` throws with 0 chapters, succeeds with ≥1 chapter (Task 5)
+- [x] `npm test -- --run src/courses/chapters.service.spec.ts` exits 0 — `create()` rejects both/neither parent (Task 7)
+- [x] `npm test -- --run src/courses/*.controller.spec.ts` exits 0 — Admin 200/201/204, Student 403, no-token 401, publish-0-chapters 409 (Task 8)
+- [x] `npm test -- --run test/content.e2e.spec.ts` exits 0 — full Admin flow: create DRAFT → publish blocked → add chapter → publish → list → student denied → delete → 404 (Task 10)
+- [x] Manual: `curl -s http://localhost:3000/courses` without a token returns 401 (routes registered + guarded, Task 9)
+- [x] `grep -rn "TODO\|TBD" apps/api/src/courses docs/superp/plans/2026-11-07-todo-2-content-management.md` returns nothing
+- [x] Every task above (1–10) is checked off and its own Acceptance Criteria verified
 
 ---
 

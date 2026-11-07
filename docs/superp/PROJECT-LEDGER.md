@@ -14,7 +14,7 @@
 | Todo | Status | Depends on | Plan file | Commit range | Needs-recheck reason |
 |------|--------|------------|-----------|--------------|----------------------|
 | Todo 1 | done | none | docs/superp/plans/2026-11-07-todo-1-foundation.md | f268f10..HEAD | |
-| Todo 2 | not-started | Todo 1 | | | |
+| Todo 2 | done | Todo 1 | docs/superp/plans/2026-11-07-todo-2-content-management.md | a507237..HEAD | |
 | Todo 3 | not-started | Todo 2 | | | |
 | Todo 4 | not-started | Todo 3 | | | |
 
