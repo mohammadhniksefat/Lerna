@@ -1,0 +1,19 @@
+{
+  "name": "@lerna/repo",
+  "private": true,
+  "description": "Lerna — Minimal Learning Management Platform (monorepo)",
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "postinstall": ""
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vitest": "^2.0.5",
+    "@nestjs/cli": "^10.4.5"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}

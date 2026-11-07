@@ -13,15 +13,17 @@
 > heading and field names exactly as shown below so the extractor's `awk`
 > pattern keeps matching.
 
-<!-- Example section — delete once real Todos start finishing:
-
-## Todo 2: Python capability service
+## Todo 1: Foundation
 **Depends on:** none
 **Produces:**
-- `mission_id: string (uuid)` — canonical identifier used by every
-  downstream service; snake_case per Constitution naming section
-- `POST /internal/missions/{mission_id}/status` — body `{status: "queued"|
-  "running"|"done"|"failed"}`, returns 200 with the updated mission object
+- `main.ts: bootstrap()` — app entry point; `AppModule` — root module wiring
+- `configuration: Record<string, any>` — typed env config; `ConfigModule` (global) — injectable `ConfigService` everywhere
+- `TypeOrmModule` — PostgreSQL connection ready for Task 4 entity; `synchronize: false`
+- `User` entity — `id`, `email`, `passwordHash`, `role`, `createdAt`; `UserRole` enum; `create-users-table` migration — `users` table with `id`, `email`, `password_hash`, `role`, `created_at`
+- `AuthService.validateUser`, `AuthService.login`, `AuthService.register`, `AuthService.bootstrapAdmin`; DTOs `RegisterDto`, `LoginDto`, `AuthResponseDto`, `UserDto`
+- `LocalStrategy`, `JwtStrategy`, `RolesGuard`, `Roles` decorator
+- `POST /auth/register`, `POST /auth/login` HTTP endpoints
+- `UsersService.findByEmail`, `findById`, `create`, `findAll`, `updateRole`; `GET/POST/PATCH /users/*` endpoints (Admin-protected)
+- `HttpExceptionFilter` — global error envelope `{ error: { code, message, details? } }`
+- App startup bootstrap — Admin created from `ADMIN_EMAIL`/`ADMIN_PASSWORD` on first start
 **Deviations from plan:** none
-
--->
