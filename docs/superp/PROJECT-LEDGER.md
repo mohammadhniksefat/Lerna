@@ -16,7 +16,7 @@
 | Todo 1 | done | none | docs/superp/plans/2026-11-07-todo-1-foundation.md | f268f10..HEAD | |
 | Todo 2 | done | Todo 1 | docs/superp/plans/2026-11-07-todo-2-content-management.md | a507237..HEAD | |
 | Todo 3 | done | Todo 2 | docs/superp/plans/2026-11-07-todo-3-learning-experience.md | pending-user-commit | |
-| Todo 4 | not-started | Todo 3 | | | |
+| Todo 4 | done | Todo 3 | docs/superp/plans/2026-11-07-todo-4-progress-tracking.md | pending-user-commit | |
 
 <!-- Add one row per Todo from the Constitution's Todo Dependency Graph.
 Keep `Depends on` here mechanically identical to the Constitution's graph —

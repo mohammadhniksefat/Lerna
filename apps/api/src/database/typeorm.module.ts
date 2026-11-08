@@ -5,6 +5,7 @@ import { User } from '../users/user.entity';
 import { Course } from '../courses/course.entity';
 import { Section } from '../courses/section.entity';
 import { Chapter } from '../courses/chapter.entity';
+import { ChapterProgress } from '../progress/chapter-progress.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { Chapter } from '../courses/chapter.entity';
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get<string>('database.url'),
-        entities: [User, Course, Section, Chapter],
+        entities: [User, Course, Section, Chapter, ChapterProgress],
         migrations: [__dirname + '/migrations/*.{ts,js}'],
         synchronize: false,
         logging: false,

@@ -56,3 +56,19 @@
 - `apps/api/test/student.e2e.spec.ts` — e2e smoke test covering published-only listing, course details, chapter reader with sanitized HTML + navigation, 401/404
 - `apps/api/src/student/student.module.spec.ts` — module wiring verification
 **Deviations from plan:** none
+
+## Todo 4: Progress Tracking
+**Depends on:** Todo 3
+**Produces:**
+- `ChapterProgress` entity — `id`, `userId`, `chapterId`, `isCompleted`, `completedAt`, `createdAt`, `updatedAt`; `user_id`/`chapter_id` unique constraint; FKs `ON DELETE CASCADE` to `users` and `chapters`; `apps/api/src/progress/chapter-progress.entity.ts`
+- Migration `CreateChapterProgressTable1731000000003` — `chapter_progress` table with `user_id`, `chapter_id`, `is_completed`, `completed_at`, unique(`user_id`, `chapter_id`), FKs `ON DELETE CASCADE`; `apps/api/src/database/migrations/create-chapter-progress-table.ts`
+- DTOs: `ProgressDto`, `CourseProgressDto`, `ResumeDto`, `ResumeChapterDto` (camelCase at API boundary)
+- `ProgressService.markComplete(userId, chapterId)` — mark chapter completed; 404 if chapter not found; 409 if already completed (idempotent)
+- `ProgressService.getCourseProgress(userId, courseId)` — progress = completed/total × 100; 404 if course not found; 0 if no chapters
+- `ProgressService.getResume(userId)` — per-course resume data (last completed / next chapter)
+- `ProgressController` — `@Controller('progress')`, `@UseGuards(JwtAuthGuard)` only (no `@Roles(ADMIN)`); `POST /progress/chapters/:id/complete`, `GET /progress/courses/:id`, `GET /progress/resume`
+- `ProgressModule` — `TypeOrmModule.forFeature([ChapterProgress])`, service, controller; registered in `AppModule`; progress API mounted at `/progress/*`
+- `ChapterProgress` added to `TypeormModule` entities array
+- `apps/api/src/progress/progress.module.spec.ts` — module wiring verification
+- `apps/api/test/progress.e2e.spec.ts` — e2e smoke test covering mark complete (201), repeat (409), course progress (200), resume (200), 401/404
+**Deviations from plan:** none
